@@ -16,7 +16,8 @@
     }
 
     // ニュースのデータを取得
-    fetch("http://localhost:8000/graphql/", {
+    fetch("https://news-share-backend.herokuapp.com/graphql/", {
+      // fetch("http://localhost:8000/graphql/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +77,8 @@
         return;
       }
       const now = new Date().getTime();
-      fetch("http://localhost:8000/graphql/", {
+      fetch("https://news-share-backend.herokuapp.com/graphql/", {
+        // fetch("http://localhost:8000/graphql/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +137,7 @@
             </a>
           </li>
           `;
-          newListElement.innerHTML = htmlString;
+          newLitEslement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
           $addNewsInput.value = "";
         });
