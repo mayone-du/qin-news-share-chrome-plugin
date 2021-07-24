@@ -40,9 +40,14 @@
       .then((json) => {
         json.data.todayNews.edges.forEach((news) => {
           // 要素自体の生成
-          const newElement = $doc.createElement("li");
-          newElement.textContent = news.node.title;
-          $newsList.appendChild(newElement);
+          const newListElement = $doc.createElement("li");
+          const newLinkElement = $doc.createElement("a");
+          newLinkElement.textContent = news.node.title;
+          newLinkElement.setAttribute("href", news.node.url);
+          newLinkElement.setAttribute("target", "_blank");
+          newLinkElement.setAttribute("rel", "noopener noreferrer");
+          newListElement.appendChild(newLinkElement);
+          $newsList.appendChild(newListElement);
         });
       });
   };
