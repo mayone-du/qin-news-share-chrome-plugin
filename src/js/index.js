@@ -1,7 +1,5 @@
 (() => {
   const $doc = document;
-  $messageButton = $doc.querySelector("#jsMessageButton");
-  $messageInput = $doc.querySelector("#jsMessageInput");
   $addNewsButton = $doc.querySelector("#jsAddNewsButton");
   $addNewsInput = $doc.querySelector("#jsAddNewsInput");
   $nameInput = $doc.querySelector("#jsNameInput");
@@ -150,12 +148,5 @@
     } catch (error) {
       alert(error);
     }
-  });
-
-  // チャット
-  $messageButton.addEventListener("click", () => {
-    const newMessage = $doc.createElement("p");
-    newMessage.textContent = $messageInput.value;
-    $newsList.appendChild(newMessage);
   });
 })();
