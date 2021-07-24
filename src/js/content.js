@@ -1,11 +1,8 @@
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   document.body.innerHTML = request.text;
-//   document.body.style.backgroundColor = "blue";
-//   sendResponse({ text: request.text });
-// });
-
 window.onload = () => {
-  alert("hoge");
-
   document.body.style.backgroundColor = "blue";
+  console.log("拡張機能が読み込まれました！");
 };
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   alert(message);
+//   return;
+// });

@@ -8,19 +8,18 @@
   // チャット
   $messageButton.addEventListener("click", () => {
     if ($messageInput.value === "") return;
-    const newMessage = $doc.createElement("p");
-    newMessage.textContent = $messageInput.value;
+    // const newMessage = $doc.createElement("p");
+    // newMessage.textContent = $messageInput.value;
     // newMessage.style.fontSize = "140px";
-    // newMessage.style.position = "absolute";
-    // newMessage.style.top = "300px";
-    $newsList.appendChild(newMessage);
+    // $newsList.appendChild(newMessage);
 
-    // backgroundへメッセージを送信
-    // chrome.runtime.sendMessage({ text: $messageInput.value }, (response) => {
-    //   console.log(response.text);
-    // });
-    // chrome.tabs.sendMessage(1, { text: "hoddddddddge" }, {}, (response) => {
-    //   console.log(response);
-    // });
+    // contentsへ送信
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        JSON.stringify({ contents: $messageInput.value }),
+        (response) => {}
+      );
+    });
   });
 })();

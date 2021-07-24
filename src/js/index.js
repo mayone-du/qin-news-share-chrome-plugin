@@ -54,7 +54,7 @@
           // 要素自体の生成
           const newListElement = $doc.createElement("li");
           const htmlString = `
-            <a href=${news.node.url} "rel", "noopener noreferrer">
+            <a href="${news.node.url}" rel="noopener noreferrer" target="_blank">
               <span>
                 ${news.node.title}
               </span>
@@ -67,6 +67,30 @@
           newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
         });
+
+        const newsCount = $newsList.querySelectorAll("li").length.toString();
+        // backgroundへニュースの数を送信
+        chrome.runtime.sendMessage({ newsCount: newsCount }, (response) => {
+          // 受け取ったレスポンスをcontentへ送信
+          console.log(response);
+          //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          //     chrome.tabs.sendMessage(
+          //       tabs[0].id,
+          //       JSON.stringify({ contents: response.newsCount }),
+          //       (response) => {}
+          //     );
+          //   });
+        });
+
+        // contentへ送信
+        // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        //   chrome.tabs.sendMessage(
+        //     tabs[0].id,
+        //     // JSON.stringify({ contents: response }),
+        //     { content: "hogeeeeeeeeeeee" },
+        //     (response) => {}
+        //   );
+        // });
       });
   };
 
@@ -131,8 +155,8 @@
           const news = json.data.createNews.news;
           // 要素自体の生成
           const newListElement = $doc.createElement("li");
-          const htmlString = `
-            <a href=${news.url} "rel", "noopener noreferrer">
+          const htmlString = `,
+            <a href="${news.url}" rel="noopener noreferrer" target="_blank">
               <span>
                 ${news.title}
               </span>
