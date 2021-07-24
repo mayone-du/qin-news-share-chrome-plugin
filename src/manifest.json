@@ -4,6 +4,9 @@
   "manifest_version": 2,
   "description": "夜活ニュースシェアのChrome拡張です。",
   "permissions": ["activeTab"],
+  "icons": {
+    "48": "icons/icon_48.png"
+  },
   "browser_action": {
     "default_popup": "index.html"
   }
