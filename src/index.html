@@ -7,7 +7,31 @@
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <button id="button">helloと伝える!</button>
+    <h1>ニュースシェア</h1>
+    <div>
+      <h2>ニュースを追加</h2>
+      <form>
+        <input
+          type="url"
+          id="jsAddNewsInput"
+          placeholder="https://google.com/news/hoge..."
+          required
+        />
+        <button id="jsAddNewsButton">AddNews!</button>
+        <input type="text" id="jsNameInput" placeholder="ユーザーネーム" />
+      </form>
+    </div>
+    <main>
+      <ul id="jsNewsList"></ul>
+    </main>
+    <div>
+      <h2>チャット欄</h2>
+      <form>
+        <input type="text" id="jsMessageInput" required />
+        <button id="jsMessageButton">Message!</button>
+      </form>
+    </div>
+
     <script src="js/index.js"></script>
   </body>
 </html>
