@@ -29,6 +29,7 @@
                   node {
                     title
                     url
+                    summary
                   }
                 }
               }
@@ -43,12 +44,20 @@
         json.data.todayNews.edges.forEach((news) => {
           // 要素自体の生成
           const newListElement = $doc.createElement("li");
-          const newLinkElement = $doc.createElement("a");
-          newLinkElement.textContent = news.node.title;
-          newLinkElement.setAttribute("href", news.node.url);
-          newLinkElement.setAttribute("target", "_blank");
-          newLinkElement.setAttribute("rel", "noopener noreferrer");
-          newListElement.appendChild(newLinkElement);
+          const htmlString = `
+          <li>
+            <a href=${news.node.url} "rel", "noopener noreferrer">
+              <span>
+                ${news.node.title}
+              </span>
+              <br />
+              <span style="color: gray;">
+                ${news.node.summary}
+              </span>
+            </a>
+          </li>
+          `;
+          newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
         });
       });
@@ -57,6 +66,15 @@
   // newsの追加
   $addNewsButton.addEventListener("click", () => {
     try {
+      const newsUrl = $addNewsInput.value;
+      // URLのチェック
+      if (
+        newsUrl === "" ||
+        !newsUrl.includes("http") ||
+        !newsUrl.includes("https")
+      ) {
+        return;
+      }
       const now = new Date().getTime();
       fetch("http://localhost:8000/graphql/", {
         method: "POST",
@@ -84,33 +102,42 @@
                 news {
                   title
                   url
+                  summary
                 }
               }
             }
           `,
           variables: {
-            url: $addNewsInput.value,
+            url: newsUrl,
             createdAt: Math.floor(now / 1000),
             contributorName: $nameInput.value,
           },
         }),
       })
         .then((response) => {
-          $addNewsInput.value = "";
           return response.json();
         })
         .then((json) => {
           // 要素自体の生成
           console.log(json);
           const news = json.data.createNews.news;
+          // 要素自体の生成
           const newListElement = $doc.createElement("li");
-          const newLinkElement = $doc.createElement("a");
-          newLinkElement.textContent = news.title;
-          newLinkElement.setAttribute("href", news.url);
-          newLinkElement.setAttribute("target", "_blank");
-          newLinkElement.setAttribute("rel", "noopener noreferrer");
-          newListElement.appendChild(newLinkElement);
+          const htmlString = `
+          <li>
+            <a href=${news.url} "rel", "noopener noreferrer">
+              <span>
+                ${news.title}
+              </span>
+              <span style="color: gray;">
+                ${news.summary}
+              </span>
+            </a>
+          </li>
+          `;
+          newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
+          $addNewsInput.value = "";
         });
     } catch (error) {
       alert(error);

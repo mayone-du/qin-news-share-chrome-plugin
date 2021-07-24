@@ -4,32 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/destyle.css@2.0.2/destyle.css"
+    />
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <h1>ニュースシェア</h1>
-    <div>
-      <h2>ニュースを追加</h2>
-      <!-- <form> -->
-      <input
-        type="url"
-        id="jsAddNewsInput"
-        placeholder="https://google.com/news/hoge..."
-        required
-      />
-      <button id="jsAddNewsButton">AddNews!</button>
-      <input type="text" id="jsNameInput" placeholder="ユーザーネーム" />
-      <!-- </form> -->
-    </div>
-    <main>
-      <ul id="jsNewsList"></ul>
-    </main>
-    <div>
-      <h2>チャット欄</h2>
-      <form>
+    <div class="ly_root">
+      <h1>ニュースシェア</h1>
+      <div>
+        <h2>ニュースを追加</h2>
+        <!-- <form onsubmit=""> -->
+        <div class="bl_newsForm">
+          <input
+            type="url"
+            id="jsAddNewsInput"
+            placeholder="https://google.com/news/hoge..."
+            required
+          />
+          <input type="text" id="jsNameInput" placeholder="ユーザーネーム" />
+          <button id="jsAddNewsButton">AddNews!</button>
+        </div>
+        <!-- </form> -->
+      </div>
+      <main>
+        <ul id="jsNewsList" class="bl_newsList"></ul>
+      </main>
+      <div>
+        <h2>チャット欄</h2>
+        <!-- <form> -->
         <input type="text" id="jsMessageInput" required />
         <button id="jsMessageButton">Message!</button>
-      </form>
+        <!-- </form> -->
+      </div>
     </div>
 
     <script src="js/index.js"></script>

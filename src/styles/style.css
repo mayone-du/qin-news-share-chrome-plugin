@@ -1,11 +1,56 @@
 body {
-  width: 500px;
+  width: 400px;
+}
+
+.ly_root {
+  overflow: hidden;
+  padding: 20px;
 }
 
 h1 {
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input {
+  display: block;
+  border: 1px solid black;
+  padding: 10px;
+  width: 100%;
 }
 
 button {
+  display: block;
+  border: 1px solid black;
   cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+/* ニュースを追加するフォーム */
+.bl_newsForm button {
+  margin: 0 auto;
+}
+
+.bl_newsList {
+  margin: 10px auto;
+  max-height: 300px;
+  overflow-y: scroll;
+  border: 1px solid black;
+}
+.bl_newsList a {
+  display: block;
+  color: rgb(39, 39, 204);
+  border: 1px solid black;
+  padding: 5px;
+  transition: 0.1s;
+}
+.bl_newsList a:hover {
+  background-color: lightblue;
 }
