@@ -4,10 +4,12 @@
   $messageInput = $doc.querySelector("#jsMessageInput");
   $addNewsButton = $doc.querySelector("#jsAddNewsButton");
   $addNewsInput = $doc.querySelector("#jsAddNewsInput");
+  $nameInput = $doc.querySelector("#jsNameInput");
   $newsList = $doc.querySelector("#jsNewsList");
 
-  // データ取得の処理
-  onload = () => {
+  // ページが読み込まれたら取得して表示
+  window.onload = () => {
+    // 今日のニュースを表示する処理
     // 子要素が消えるまで削除
     while ($newsList.firstChild) {
       $newsList.removeChild($newsList.firstChild);
@@ -55,7 +57,6 @@
   // newsの追加
   $addNewsButton.addEventListener("click", () => {
     try {
-      const newsUrl = $addNewsInput.value;
       const now = new Date().getTime();
       fetch("http://localhost:8000/graphql/", {
         method: "POST",
@@ -88,18 +89,28 @@
             }
           `,
           variables: {
-            url: newsUrl,
+            url: $addNewsInput.value,
             createdAt: Math.floor(now / 1000),
-            contributorName: $doc.querySelector("#jsNameInput").value,
+            contributorName: $nameInput.value,
           },
         }),
       })
         .then((response) => {
+          $addNewsInput.value = "";
           return response.json();
         })
         .then((json) => {
-          title = json.data.createNews.news.title;
-          alert(title);
+          // 要素自体の生成
+          console.log(json);
+          const news = json.data.createNews.news;
+          const newListElement = $doc.createElement("li");
+          const newLinkElement = $doc.createElement("a");
+          newLinkElement.textContent = news.title;
+          newLinkElement.setAttribute("href", news.url);
+          newLinkElement.setAttribute("target", "_blank");
+          newLinkElement.setAttribute("rel", "noopener noreferrer");
+          newListElement.appendChild(newLinkElement);
+          $newsList.appendChild(newListElement);
         });
     } catch (error) {
       alert(error);
