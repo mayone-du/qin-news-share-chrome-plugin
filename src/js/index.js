@@ -42,11 +42,20 @@
         return response.json();
       })
       .then((json) => {
+        // ニュースがまだない場合
+        if (json.data.todayNews.edges.length === 0) {
+          const newListElement = $doc.createElement("li");
+          const htmlString = `
+            <p>今日のニュースはまだありません。</p>
+                    `;
+          newListElement.innerHTML = htmlString;
+          $newsList.appendChild(newListElement);
+          return;
+        }
         json.data.todayNews.edges.forEach((news) => {
           // 要素自体の生成
           const newListElement = $doc.createElement("li");
           const htmlString = `
-          <li>
             <a href=${news.node.url} "rel", "noopener noreferrer">
               <span>
                 ${news.node.title}
@@ -56,7 +65,6 @@
                 ${news.node.summary}
               </span>
             </a>
-          </li>
           `;
           newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
@@ -126,7 +134,6 @@
           // 要素自体の生成
           const newListElement = $doc.createElement("li");
           const htmlString = `
-          <li>
             <a href=${news.url} "rel", "noopener noreferrer">
               <span>
                 ${news.title}
@@ -135,7 +142,6 @@
                 ${news.summary}
               </span>
             </a>
-          </li>
           `;
           newLitEslement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
