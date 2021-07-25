@@ -40,28 +40,29 @@
         return response.json();
       })
       .then((json) => {
+        // ニュースのカウントを表示
+        newListElement.innerHTML = htmlString;
+        $newsList.appendChild(newListElement);
+        const newsCount = $newsList.querySelectorAll("li").length.toString();
+        // backgroundへニュースの数を送信
+        chrome.runtime.sendMessage({ newsCount: newsCount }, (response) => {
+          // 受け取ったレスポンスをcontentへ送信
+          console.log(response);
+          //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          //     chrome.tabs.sendMessage(
+          //       tabs[0].id,
+          //       JSON.stringify({ contents: response.newsCount }),
+          //       (response) => {}
+          //     );
+          //   });
+        });
+
         // ニュースがまだない場合
         if (json.data.todayNews.edges.length === 0) {
           const newListElement = $doc.createElement("div");
           const htmlString = `
             今日のニュースはまだありません。
                     `;
-          newListElement.innerHTML = htmlString;
-          $newsList.appendChild(newListElement);
-          const newsCount = $newsList.querySelectorAll("li").length.toString();
-          // backgroundへニュースの数を送信
-          chrome.runtime.sendMessage({ newsCount: newsCount }, (response) => {
-            // 受け取ったレスポンスをcontentへ送信
-            console.log(response);
-            //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            //     chrome.tabs.sendMessage(
-            //       tabs[0].id,
-            //       JSON.stringify({ contents: response.newsCount }),
-            //       (response) => {}
-            //     );
-            //   });
-          });
-
           return;
         }
         json.data.todayNews.edges.forEach((news) => {
@@ -81,16 +82,6 @@
           newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
         });
-
-        // contentへ送信
-        // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        //   chrome.tabs.sendMessage(
-        //     tabs[0].id,
-        //     // JSON.stringify({ contents: response }),
-        //     { content: "hogeeeeeeeeeeee" },
-        //     (response) => {}
-        //   );
-        // });
       });
   };
 
