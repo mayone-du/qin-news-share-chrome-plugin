@@ -14,12 +14,13 @@
     // $newsList.appendChild(newMessage);
 
     // contentsへ送信
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        JSON.stringify({ contents: $messageInput.value }),
-        (response) => {}
-      );
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    //   chrome.tabs.sendMessage(
+    //     tabs[0].id,
+    //     JSON.stringify({ contents: $messageInput.value }),
+    //     (response) => {}
+    //   );
+    // });
+    alert($messageInput.value);
   });
 })();

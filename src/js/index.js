@@ -5,7 +5,7 @@
   $nameInput = $doc.querySelector("#jsNameInput");
   $newsList = $doc.querySelector("#jsNewsList");
 
-  // ページが読み込まれたら取得して表示
+  // popupページが読み込まれたら取得して表示 ページのDOMではないので注意
   window.onload = () => {
     // 今日のニュースを表示する処理
     // 子要素が消えるまで削除
@@ -42,12 +42,26 @@
       .then((json) => {
         // ニュースがまだない場合
         if (json.data.todayNews.edges.length === 0) {
-          const newListElement = $doc.createElement("li");
+          const newListElement = $doc.createElement("div");
           const htmlString = `
-            <p>今日のニュースはまだありません。</p>
+            今日のニュースはまだありません。
                     `;
           newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
+          const newsCount = $newsList.querySelectorAll("li").length.toString();
+          // backgroundへニュースの数を送信
+          chrome.runtime.sendMessage({ newsCount: newsCount }, (response) => {
+            // 受け取ったレスポンスをcontentへ送信
+            console.log(response);
+            //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            //     chrome.tabs.sendMessage(
+            //       tabs[0].id,
+            //       JSON.stringify({ contents: response.newsCount }),
+            //       (response) => {}
+            //     );
+            //   });
+          });
+
           return;
         }
         json.data.todayNews.edges.forEach((news) => {
@@ -66,20 +80,6 @@
           `;
           newListElement.innerHTML = htmlString;
           $newsList.appendChild(newListElement);
-        });
-
-        const newsCount = $newsList.querySelectorAll("li").length.toString();
-        // backgroundへニュースの数を送信
-        chrome.runtime.sendMessage({ newsCount: newsCount }, (response) => {
-          // 受け取ったレスポンスをcontentへ送信
-          console.log(response);
-          //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          //     chrome.tabs.sendMessage(
-          //       tabs[0].id,
-          //       JSON.stringify({ contents: response.newsCount }),
-          //       (response) => {}
-          //     );
-          //   });
         });
 
         // contentへ送信
