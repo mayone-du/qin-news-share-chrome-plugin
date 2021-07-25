@@ -15,19 +15,19 @@
       <h1>ニュースシェア</h1>
       <div>
         <h2>ニュースを追加</h2>
-        <!-- <form onsubmit=""> -->
-        <div class="bl_newsForm">
-          <input
-            type="url"
-            id="jsAddNewsInput"
-            placeholder="https://google.com/news/hoge..."
-            required
-            autofocus
-          />
-          <input type="text" id="jsNameInput" placeholder="ユーザーネーム" />
-          <button id="jsAddNewsButton">AddNews!</button>
-        </div>
-        <!-- </form> -->
+        <form id="jsNewsForm">
+          <div class="bl_newsForm">
+            <input
+              type="url"
+              id="jsAddNewsInput"
+              placeholder="https://google.com/news/hoge..."
+              required
+              autofocus
+            />
+            <input type="text" id="jsNameInput" placeholder="ユーザーネーム" />
+            <button id="jsAddNewsButton">AddNews!</button>
+          </div>
+        </form>
       </div>
       <main>
         <ul id="jsNewsList" class="bl_newsList"></ul>

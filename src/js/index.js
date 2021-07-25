@@ -4,6 +4,7 @@
   $addNewsInput = $doc.querySelector("#jsAddNewsInput");
   $nameInput = $doc.querySelector("#jsNameInput");
   $newsList = $doc.querySelector("#jsNewsList");
+  $newsForm = $doc.querySelector("#jsNewsForm");
   storageUserNameKey = "QinUserName";
 
   // popupページが読み込まれたら取得して表示 ページのDOMではないので注意
@@ -13,6 +14,11 @@
     while ($newsList.firstChild) {
       $newsList.removeChild($newsList.firstChild);
     }
+
+    // formの送信を無効化
+    $newsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
 
     // storageにユーザー名が保存されていたらセット
     chrome.storage.sync.get(storageUserNameKey, (value) => {
